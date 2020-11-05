@@ -1,6 +1,7 @@
 import numpy as np
 import statistics as st
 import pandas as pd
+import scipy.stats as sc
 import matplotlib.pyplot as plt
 
 
@@ -13,3 +14,51 @@ print('Mediana = ', np.median(data))
 print('Odchylenie standardowe  = ', st.stdev(data))
 print('Odchylenie standardowe dla całej populacji  = ', st.pstdev(data))
 
+
+data2 = pd.read_csv('MDR_RR_TB_burden_estimates_2020-11-05.csv');
+print(data2)
+print(data2.iloc[:,9])
+data_new= data2.iloc[:,9]
+
+#scipy
+print('kurtoza   = ', sc.kurtosis(data_new))
+print('skośność  = ', sc.skew(data_new))
+print('opis-all (describe)  = \n\n', sc.describe(data_new))
+
+print('mediana = ', np.median(data_new))
+print('odchylenie standardowe = ', st.stdev(data_new))
+print('odchylenie standardowe dla całej populacji = ', st.pstdev(data_new))
+print('wariancja  = ', st.variance(data_new))
+
+data3 = pd.read_csv('brain_size.csv', delimiter=';')
+print(data3.head())
+print(data3.iloc[:,4])
+all_viq = data3.iloc[:,4]
+print('średnia ', np.mean(all_viq))
+gender = data3.Gender.value_counts()
+print(gender)
+
+plt.hist(all_viq, bins = 10)
+plt.show()
+
+all_piq = data3.iloc[:,5]
+plt.hist(all_piq, bins = 10)
+plt.show()
+
+all_fsiq = data3.iloc[:,3]
+plt.hist(all_fsiq, bins = 10)
+plt.show()
+
+women = data3[data3['Gender']=='Female']
+
+women_viq = women.iloc[:,4]
+plt.hist(women_viq , bins = 10)
+plt.show()
+
+women_piq = women.iloc[:,5]
+plt.hist(women_piq , bins = 10)
+plt.show()
+
+women_fsiq = women.iloc[:,3]
+plt.hist(women_fsiq , bins = 10)
+plt.show()
