@@ -1,0 +1,15 @@
+import numpy as np
+import statistics as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+
+data = np.loadtxt('Wzrost.csv', delimiter=',', skiprows=0);
+print(data)
+print('Maks. wzrost = ', np.max(data))
+print('Mediana = ', np.median(data))
+
+print('Odchylenie standardowe  = ', st.stdev(data))
+print('Odchylenie standardowe dla całej populacji  = ', st.pstdev(data))
+
