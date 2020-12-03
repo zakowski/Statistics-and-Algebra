@@ -1,0 +1,112 @@
+import scipy.stats as scs
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+wartosc = (1,2,3,4,5,6)
+prawdopodobienstwo = (1/6,1/6,1/6,1/6,1/6,1/6)
+rozklad = scs.rv_discrete(values=(wartosc, prawdopodobienstwo))
+print('waraiancja - ', rozklad.var())
+print('srednia - ', rozklad.mean())
+print('odchylenie - ', rozklad.std())
+print('mediana - ', rozklad.median())
+
+
+p = 0.6
+n = 4
+bernoulli = scs.bernoulli.rvs(p, size=100)
+binomial = scs.binom.rvs(n, p, size=100)
+poisson = scs.poisson.rvs(p, size=100)
+print("bernoulli - ", bernoulli)
+print()
+print("binomial - ",binomial)
+print()
+print("poisson - ",poisson)
+
+mean, var, skew, kurt = scs.bernoulli.stats(p, moments='mvsk')
+print("srednia - ", mean)
+print("waroiancja - ",var)
+print("kurtoza - ",kurt)
+print("skosnosc - ", skew)
+
+
+mean, var, skew, kurt = scs.poisson.stats(n, p, moments='mvsk')
+print("srednia - ", mean)
+print("wariancja - ",var)
+print("kurtoza - ",kurt)
+print("skosnosc - ", skew)
+
+mean, var, skew, kurt = scs.binom.stats(n, p, moments='mvsk')
+print("srednia - ", mean)
+print("waroiancja - ",var)
+print("kurtoza - ",kurt)
+print("skosnosc - ", skew)
+
+a = sns.displot(binomial,
+                  kde=False,
+                  color='skyblue')
+a.set(xlabel='Binomial ', ylabel='Frequency')
+b = sns.displot(bernoulli,
+                  kde=False,
+                  color='skyblue')
+b.set(xlabel='Bernoulli ', ylabel='Frequency')
+c = sns.displot(poisson,
+                  kde=False,
+                  color='skyblue')
+c.set(xlabel='Poisson ', ylabel='Frequency')
+
+plt.show()
+
+
+n = 20
+p = 0.4
+k = 20
+binomial = scs.binom.rvs(n, p, size=20)
+d = sns.displot(binomial,
+                 kde=False,
+                 color='skyblue')
+d.set(xlabel='Binomial', ylabel='Frequency')
+print('Suma prawdopodobieństw: ', scs.binom.cdf(k, n, p))
+print()
+
+
+data = scs.norm.rvs(size=100, loc=0, scale=2)
+mean, var, skew, kurt = scs.norm.stats(loc=0, scale=2, moments='mvsk')
+print("srednia -  0, teraz : ", mean)
+print("wariancja-  4, teraz: ", var)
+print("odchylenie -  2, teraz: ", data.std())
+print("mediana - 0, teraz: ",scs.norm.median(loc=0, scale=2))
+print("oczekiwana wartosc -  0, teraz: ", scs.norm.expect(loc=0, scale=2))
+print("kurtoza -  0, teraz: ", kurt)
+print("skosnosc -  0, teraz: ", skew)
+
+data = scs.norm.rvs(size=2000, loc=0, scale=2)
+mean, var, skew, kurt = scs.norm.stats(loc=0, scale=2, moments='mvsk')
+print("srednia -  0, teraz : ", mean)
+print("wariancja-  4, teraz: ", var)
+print("odchylenie -  2, teraz: ", data.std())
+print("mediana - 0, teraz: ",scs.norm.median(loc=0, scale=2))
+print("oczekiwana wartosc -  0, teraz: ", scs.norm.expect(loc=0, scale=2))
+print("kurtoza -  0, teraz: ", kurt)
+print("skosnosc -  0, teraz: ", skew)
+
+
+data = scs.norm.rvs(size=11000, loc=0, scale=2)
+mean, var, skew, kurt = scs.norm.stats(loc=0, scale=2, moments='mvsk')
+print("srednia -  0, teraz : ", mean)
+print("wariancja-  4, teraz: ", var)
+print("odchylenie -  2, teraz: ", data.std())
+print("mediana - 0, teraz: ",scs.norm.median(loc=0, scale=2))
+print("oczekiwana wartosc -  0, teraz: ", scs.norm.expect(loc=0, scale=2))
+print("kurtoza -  0, teraz: ", kurt)
+print("skosnosc -  0, teraz: ", skew)
+
+data1 = scs.norm.rvs(size=1000, loc=0, scale=1)
+data2 = scs.norm.rvs(size=1000, loc=1, scale=2)
+data3= scs.norm.rvs(size=1000, loc=-1, scale=0.5)
+
+x = sns.histplot(data1,color='red')
+x = sns.histplot(data2,color='blue')
+x = sns.histplot(data3,color='green')
+
+plt.show()
